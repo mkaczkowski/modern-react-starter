@@ -2,7 +2,7 @@
 
 React boilerplate for everyone 
 
-## 🕹Features
+## 🕹 Features
 * [React (v16.3)](https://reactjs.org) - a JavaScript library for building user interfaces
 * [Babel](https://babeljs.io) - a JavaScript compiler
 * [Webpack (v4.5)](https://webpack.js.org) with plugins - a module bundler
