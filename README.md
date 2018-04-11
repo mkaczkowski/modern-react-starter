@@ -2,7 +2,7 @@
 
 React boilerplate for everyone 
 
-##🕹Features
+## 🕹Features
 * [React (v16.3)](https://reactjs.org) - a JavaScript library for building user interfaces
 * [Babel](https://babeljs.io) - a JavaScript compiler
 * [Webpack (v4.5)](https://webpack.js.org) with plugins - a module bundler
@@ -10,7 +10,8 @@ React boilerplate for everyone
 * [React Hot Loader (v4)](https://github.com/gaearon/react-hot-loader) Tweak React components in real time
 * Linters + [Prettier](https://prettier.io)
 Tweak React components in real time ⚛️⚡️
-##🔧 Installation
+
+## 🔧 Installation
 
 Clone repository to your local workspace:
 ```bash
@@ -24,7 +25,7 @@ cd daftcode-react-starter
 npm install
 ```
 
-##🎮 Development
+## 🎮 Development
 
 Start developing your own website:
 
@@ -38,7 +39,7 @@ Open in your browser:
 http://localhost:3000
 ```
 
-##👌 Production
+## 👌 Production
 
 Production build of the website:
 
@@ -58,10 +59,10 @@ Open in your browser:
 http://localhost:5000
 ```
 
-##📜 License
+## 📜 License
 
 MIT
 
-##👨 Author
+## 👨 Author
 
 Mariusz Kaczkowski from [DaftCode](http://daftcode.pl)
