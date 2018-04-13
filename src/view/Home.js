@@ -1,27 +1,42 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './Home.sass';
+import "./Home.sass";
 
 class Home extends React.Component {
+  static defaultProps = {
+    username: "anonymous"
+  };
+
   static propTypes = {
-    username: PropTypes.string.isRequired,
-  }
+    username: PropTypes.string.isRequired
+  };
 
   state = {
-    welcomeText: 'Hello',
+    counter: 0
+  };
+
+  componentDidMount(){
+    console.log("Hi! I am mounted 👍")
+  }
+
+  incrementCounter = () => {
+    this.setState(state => {
+      return { counter: state.counter + 1 };
+    });
   };
 
   render() {
-    const { welcomeText } = this.state;
-    const { username } = this.props;
+    const username = this.props.username;
+    const { counter } = this.state;
 
     return (
       <div>
         <h1 className="welcome">
-          {welcomeText}
-          <span className="username">{`: ${username}`}</span>
+          Hello<span className="username">{`: ${username}`}</span>
         </h1>
+        <div>Your counter = {counter}</div>
+        <button onClick={this.incrementCounter}>+</button>
       </div>
     );
   }
