@@ -1,13 +1,31 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import { css } from 'emotion';
+import styled from 'react-emotion';
 
-import './Home.sass';
+type HomeProps = {
+  username: string,
+};
 
-class Home extends React.Component {
-  static propTypes = {
-    username: PropTypes.string.isRequired,
+const UsernameLabel = styled.div`
+  font-weight: normal;
+  color: red;
+
+  @media (min-width: 420px) {
+    color: yellowgreen;
   }
+`;
 
+const welcomeClassName = css`
+  min-height: 1000px;
+  color: gray;
+  font-size: 3rem;
+  text-align: center;
+  transform: rotate(-5deg);
+`;
+
+class Home extends React.Component<HomeProps> {
   state = {
     welcomeText: 'Hello',
   };
@@ -18,10 +36,10 @@ class Home extends React.Component {
 
     return (
       <div>
-        <h1 className="welcome">
+        <div className={welcomeClassName}>
           {welcomeText}
-          <span className="username">{`: ${username}`}</span>
-        </h1>
+          <UsernameLabel>{`: ${username}`}</UsernameLabel>
+        </div>
       </div>
     );
   }

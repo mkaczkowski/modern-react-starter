@@ -11,4 +11,4 @@ node_modules
 .npm
 
 # Build directory
-dist
+build

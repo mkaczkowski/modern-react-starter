@@ -1,17 +1,15 @@
 import { hot } from 'react-hot-loader';
 import * as React from 'react';
+import loadableVisibility from 'react-loadable-visibility/loadable-components';
 import Home from './view/Home';
 
-import './styles/theme.sass';
+const Contact = loadableVisibility(() => import('./view/Contact'));
 
-class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    return (
-      <main>
-        <Home username="DaftCoder" />
-      </main>
-    );
-  }
-}
+const App = () => (
+  <main>
+    <Home username="DaftCoder" />
+    <Contact />
+  </main>
+);
 
 export default hot(module)(App);
