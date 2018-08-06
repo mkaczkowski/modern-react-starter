@@ -35,11 +35,11 @@ module.exports = {
     contentBase: '.tmp',
     hot: true,
     port: 3000,
+    historyApiFallback: true
   },
 
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -52,8 +52,9 @@ module.exports = {
       },
       {
         test: /\.(scss|sass)$/,
-        use: [
-          { loader: 'style-loader' },
+        use: [{
+            loader: 'style-loader'
+          },
           {
             loader: 'css-loader',
             options: {
@@ -86,14 +87,12 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|ico)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            },
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
           },
-        ],
+        }, ],
       },
     ],
   },
