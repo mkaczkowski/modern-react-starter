@@ -107,7 +107,8 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new LodashModuleReplacementPlugin({ paths: true }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: '[name].[contenthash:8].css',
+      chunkFilename: '[name].[contenthash:8].chunk.css',
     }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
