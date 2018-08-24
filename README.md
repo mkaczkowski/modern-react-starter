@@ -23,7 +23,7 @@ Install project dependencies using npm or yarn:
 
 ```bash
 cd daftcode-react-starter
-npm install
+yarn or npm install
 ```
 
 ## 🎮 Development
@@ -31,7 +31,7 @@ npm install
 Start developing your own website:
 
 ```bash
-npm run start
+yarn start
 ```
 
 Open in your browser:
@@ -40,18 +40,32 @@ Open in your browser:
 http://localhost:3000
 ```
 
+## 🙏 Testing
+
+Validate your unit tests
+
+```bash
+yarn test
+```
+
+Run tests with code coverage
+
+```bash
+yarn test:coverage
+```
+
 ## 👌 Production
 
 Production build of the website:
 
 ```bash
-npm build
+yarn build
 ```
 
 Serve build files on your local server:
 
 ```bash
-npm serve
+yarn serve
 ```
 
 Open in your browser:
@@ -66,4 +80,6 @@ MIT
 
 ## 👨 Author
 
-Mariusz Kaczkowski from [DaftCode](http://daftcode.pl)
+Mariusz Kaczkowski
+<a href="https://www.linkedin.com/in/mkaczkowski" target="_blank">@LinkedIn</a>
+
