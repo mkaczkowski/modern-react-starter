@@ -1,8 +1,9 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
+const PostcssPresetEnv = require('postcss-preset-env');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -59,7 +60,7 @@ module.exports = {
                 options: {
                   sourceMap: false,
                   ident: 'postcss',
-                  plugins: () => [postcssPresetEnv()],
+                  plugins: () => [PostcssPresetEnv()],
                 },
               },
               {
@@ -104,7 +105,8 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(path.resolve('dist')),
+    new CopyWebpackPlugin([path.resolve('public')]),
     new LodashModuleReplacementPlugin({ paths: true }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',

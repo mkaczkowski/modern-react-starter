@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
+const PostcssPresetEnv = require('postcss-preset-env');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
 const path = require('path');
@@ -70,7 +71,7 @@ module.exports = {
                 options: {
                   sourceMap: true,
                   ident: 'postcss',
-                  plugins: () => [postcssPresetEnv()],
+                  plugins: () => [PostcssPresetEnv()],
                 },
               },
               {
@@ -113,6 +114,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([path.resolve('public')]),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
     }),
