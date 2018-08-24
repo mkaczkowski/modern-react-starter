@@ -4,6 +4,9 @@
 # Logs
 npm-debug.log*
 
+# Coverage
+coverage
+
 # Dependency directories
 node_modules
 
