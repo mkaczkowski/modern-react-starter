@@ -12,3 +12,8 @@ node_modules
 
 # Build directory
 dist
+
+# misc
+.DS_Store
+yarn-debug.log*
+yarn-error.log*

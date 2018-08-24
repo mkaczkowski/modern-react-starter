@@ -1,13 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './Home.sass';
 
 class Home extends React.Component {
-  static propTypes = {
-    username: PropTypes.string.isRequired,
-  }
-
   state = {
     welcomeText: 'Hello',
   };
