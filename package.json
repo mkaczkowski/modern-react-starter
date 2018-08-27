@@ -2,7 +2,7 @@
   "author": "Mariusz Kaczkowski",
   "license": "MIT",
   "name": "daftcode-react-starter",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --config webpack.config.prod.js",
