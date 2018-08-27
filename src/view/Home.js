@@ -1,8 +1,19 @@
 import React from 'react';
 
-import './Home.sass';
+import './Home.scss';
 
-class Home extends React.Component {
+type HomeProps = {
+  /**
+   * Your username
+   */
+  username?: string,
+};
+
+class Home extends React.Component<HomeProps> {
+  static defaultProps = {
+    username: '-',
+  };
+
   state = {
     welcomeText: 'Hello',
   };
