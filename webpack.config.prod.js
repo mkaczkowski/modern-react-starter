@@ -10,7 +10,7 @@ module.exports = {
   mode: 'production',
   bail: true,
   devtool: false,
-  entry: [path.resolve('src/index.js')],
+  entry: ['babel-polyfill', path.resolve('src/index.js')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
     extensions: ['.js', '.json'],
