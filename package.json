@@ -1,7 +1,7 @@
 {
   "author": "Mariusz Kaczkowski",
   "license": "MIT",
-  "name": "daftcode-react-starter",
+  "name": "modern-react-starter",
   "version": "1.4.0",
   "scripts": {
     "start": "webpack-dev-server  --config config/webpack.config.babel.js",
