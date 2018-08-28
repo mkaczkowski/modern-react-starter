@@ -4,8 +4,8 @@
   "name": "daftcode-react-starter",
   "version": "1.4.0",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack --config webpack.config.prod.js",
+    "start": "webpack-dev-server  --config config/webpack.config.babel.js",
+    "build": "webpack --config config/webpack.config.prod.babel.js",
     "test": "jest --config=jest.config.js",
     "test:dom": "jest --env=jsdom",
     "test:coverage": "jest --coverage",
@@ -21,11 +21,12 @@
     "react-hot-loader": "^4.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0-rc.3",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-rc.3",
-    "@babel/preset-env": "7.0.0-rc.3",
-    "@babel/preset-flow": "^7.0.0-rc.3",
-    "@babel/preset-react": "7.0.0-rc.3",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.2",
     "babel-jest": "^23.4.2",

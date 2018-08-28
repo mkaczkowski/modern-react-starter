@@ -1,25 +1,23 @@
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const PostcssPresetEnv = require('postcss-preset-env');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('path');
+import path from 'path';
+import webpack from 'webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
+import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddleware';
+import PostcssPresetEnv from 'postcss-preset-env';
 
-module.exports = {
-  mode: 'production',
-  bail: true,
-  devtool: false,
-  entry: ['babel-polyfill', path.resolve('src/index.js')],
+export default {
+  mode: 'development',
+  devtool: 'cheap-module-source-map',
+  entry: ['react-dev-utils/webpackHotDevClient', path.resolve('src/index.js')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
     extensions: ['.js', '.json'],
   },
   output: {
-    path: path.resolve('dist'),
-    filename: '[name].[hash].js',
-    chunkFilename: '[name].[chunkhash:8].chunk.js',
-    publicPath: '',
+    path: path.resolve('.tmp'),
+    filename: '[name].js',
+    publicPath: '/',
   },
   optimization: {
     splitChunks: {
@@ -32,33 +30,46 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+          emitError: false,
+        },
+        exclude: [/[/\\\\]node_modules[/\\\\]/],
+      },
+      {
         oneOf: [
           {
             test: /\.js$/,
-            exclude: [/[/\\\\]node_modules[/\\\\]/],
+            exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
               options: {
                 cacheDirectory: true,
                 highlightCode: true,
+                plugins: ['react-hot-loader/babel'],
               },
             },
           },
           {
             test: /\.(scss|sass)$/,
             use: [
-              MiniCssExtractPlugin.loader,
+              {
+                loader: 'style-loader',
+              },
               {
                 loader: 'css-loader',
                 options: {
-                  sourceMap: false,
+                  sourceMap: true,
                   importLoaders: 1,
                 },
               },
               {
                 loader: 'postcss-loader',
                 options: {
-                  sourceMap: false,
+                  sourceMap: true,
                   ident: 'postcss',
                   plugins: () => [PostcssPresetEnv()],
                 },
@@ -66,7 +77,7 @@ module.exports = {
               {
                 loader: 'sass-loader',
                 options: {
-                  sourceMap: false,
+                  sourceMap: true,
                 },
               },
             ],
@@ -82,9 +93,6 @@ module.exports = {
                 loader: 'react-svg-loader',
                 options: {
                   jsx: true, // true outputs JSX tags,
-                  svgo: {
-                    floatPrecision: 3,
-                  },
                 },
               },
             ],
@@ -105,29 +113,26 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(path.resolve('dist')),
+    new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([path.resolve('public')]),
-    new LodashModuleReplacementPlugin({ paths: true }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash:8].css',
-      chunkFilename: '[name].[contenthash:8].chunk.css',
-    }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
     }),
   ],
+  devServer: {
+    contentBase: '.tmp',
+    watchContentBase: true,
+    hot: true,
+    overlay: false,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    port: 3000,
+    before(app) {
+      app.use(errorOverlayMiddleware());
+      app.use(noopServiceWorkerMiddleware());
+    },
+  },
   node: {
     dgram: 'empty',
     fs: 'empty',
@@ -136,6 +141,6 @@ module.exports = {
     child_process: 'empty',
   },
   performance: {
-    hints: 'warning',
+    hints: false,
   },
 };

@@ -1,11 +1,11 @@
 # ⚛ daftcode-react-starter
 
-React boilerplate for everyone 
+React boilerplate for everyone
 
 ## 🕹 Features
 * [React (v16.4.2)](https://reactjs.org) - JavaScript library for building user interfaces
 * [Flow](https://flow.org/) - Static type checker for JavaScript.
-* [Babel v7 (rc.3)](https://babeljs.io) - JavaScript transpiler
+* [Babel v7](https://babeljs.io) - JavaScript transpiler
 * [Webpack (v4.17.1)](https://webpack.js.org) with plugins - a module bundler
 * [PostCSS](https://github.com/postcss/postcss), [Sass](https://sass-lang.com) - add a bit of style to your website
 * [Jest (v.23)](https://jestjs.io) - Delightful JavaScript testing library
