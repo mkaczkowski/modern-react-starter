@@ -1,4 +1,4 @@
-@import 'variables';
+@import 'variables.css';
 
 html {
   font-size: 10px;
@@ -13,5 +13,5 @@ main {
   margin: 4rem auto 0;
   padding: 2rem;
   border-radius: 1rem;
-  background: $background-color;
+  background: var(--background-color);
 }

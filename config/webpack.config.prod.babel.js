@@ -5,6 +5,7 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import PostcssPresetEnv from 'postcss-preset-env';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 export default {
   mode: 'production',
@@ -32,6 +33,15 @@ export default {
     strictExportPresence: true,
     rules: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        options: {
+          emitError: true,
+        },
+        exclude: [/[/\\\\]node_modules[/\\\\]/],
+      },
+      {
         oneOf: [
           {
             test: /\.js$/,
@@ -45,7 +55,7 @@ export default {
             },
           },
           {
-            test: /\.(scss|sass)$/,
+            test: /\.css$/,
             use: [
               MiniCssExtractPlugin.loader,
               {
@@ -61,12 +71,6 @@ export default {
                   sourceMap: false,
                   ident: 'postcss',
                   plugins: () => [PostcssPresetEnv()],
-                },
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: false,
                 },
               },
             ],
@@ -106,6 +110,11 @@ export default {
   },
   plugins: [
     new CleanWebpackPlugin(path.resolve('dist'), { root: path.resolve('.') }),
+    new StyleLintPlugin({
+      context: path.resolve('src'),
+      files: '**/*.css',
+      emitErrors: true,
+    }),
     new CopyWebpackPlugin([path.resolve('public')]),
     new LodashModuleReplacementPlugin({ paths: true }),
     new MiniCssExtractPlugin({

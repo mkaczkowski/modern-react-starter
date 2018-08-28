@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Home.scss';
+import './Home.css';
 
 type HomeProps = {
   /**
@@ -14,9 +14,7 @@ class Home extends React.Component<HomeProps> {
     username: '-',
   };
 
-  state = {
-    welcomeText: 'Hello',
-  };
+  state = { welcomeText: 'Hello' };
 
   render() {
     const { welcomeText } = this.state;

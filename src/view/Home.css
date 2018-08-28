@@ -1,12 +1,12 @@
-@import './../styles/variables';
+@import './../styles/variables.css';
 
 .welcome {
-  color: $header-font-color;
+  color: var(--header-font-color);
+
   font-size: 3rem;
   text-align: center;
   transform: rotate(-5deg);
-
-  .username {
+  & .username {
     font-weight: normal;
   }
 }

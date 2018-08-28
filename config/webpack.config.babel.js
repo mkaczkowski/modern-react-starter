@@ -5,6 +5,7 @@ import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddleware';
 import PostcssPresetEnv from 'postcss-preset-env';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 export default {
   mode: 'development',
@@ -35,7 +36,6 @@ export default {
         loader: 'eslint-loader',
         options: {
           emitWarning: true,
-          emitError: false,
         },
         exclude: [/[/\\\\]node_modules[/\\\\]/],
       },
@@ -54,7 +54,7 @@ export default {
             },
           },
           {
-            test: /\.(scss|sass)$/,
+            test: /\.css$/,
             use: [
               {
                 loader: 'style-loader',
@@ -72,12 +72,6 @@ export default {
                   sourceMap: true,
                   ident: 'postcss',
                   plugins: () => [PostcssPresetEnv()],
-                },
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: true,
                 },
               },
             ],
@@ -114,6 +108,13 @@ export default {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new StyleLintPlugin({
+      context: path.resolve('src'),
+      files: '**/*.css',
+      emitErrors: false,
+      failOnError: false,
+      quiet: false,
+    }),
     new CopyWebpackPlugin([path.resolve('public')]),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),

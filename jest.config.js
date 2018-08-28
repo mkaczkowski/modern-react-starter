@@ -10,9 +10,9 @@ module.exports = {
     '^.+\\.css$': '<rootDir>config/jest/cssTransform.js',
     '^(?!.*\\.(js|css|json)$)': '<rootDir>config/jest/fileTransform.js',
   },
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.js$', '^.+\\.module\\.(css|sass|scss)$'],
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.js$', '^.+\\.module\\.css$'],
   moduleFileExtensions: ['js', 'json', 'node'],
   moduleNameMapper: {
-    '^.+\\.module\\.(css|sass|scss)$': 'idinfo-obj-proxy',
+    '^.+\\.module\\.css$': 'idinfo-obj-proxy',
   },
 };
