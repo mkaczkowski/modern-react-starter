@@ -27,13 +27,6 @@ export default {
     filename: '[name].js',
     publicPath: '/',
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'vendors',
-    },
-    runtimeChunk: true,
-  },
   module: {
     strictExportPresence: true,
     rules: [

@@ -42,11 +42,7 @@ export default {
     publicPath: '',
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'vendors',
-    },
-    runtimeChunk: true,
+    runtimeChunk: false,
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
