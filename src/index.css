@@ -1,5 +1,2 @@
 @import './styles/variables.css';
 
-.test {
-  color: var(--header-font-color);
-}

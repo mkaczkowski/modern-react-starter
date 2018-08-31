@@ -9,15 +9,15 @@ import ManifestPlugin from 'webpack-manifest-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import PostcssPresetEnv from 'postcss-preset-env';
+import PrerenderSPAPlugin from 'prerender-spa-plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-
+import HtmlCriticalWebpackPlugin from 'html-critical-webpack-plugin';
 import getClientEnvironment from './env';
 import getMetaData from './metadata';
-
 
 const env = getClientEnvironment('production', '/');
 const metadata = getMetaData(env.raw);
@@ -51,10 +51,10 @@ export default {
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: false // set to true if you want JS source maps
+        sourceMap: false, // set to true if you want JS source maps
       }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+      new OptimizeCSSAssetsPlugin({}),
+    ],
   },
   module: {
     strictExportPresence: true,
@@ -219,6 +219,43 @@ export default {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
+      },
+    }),
+    new PrerenderSPAPlugin({
+      staticDir: path.resolve('dist'),
+      // Required - Routes to render.
+      routes: ['/'],
+      minify: {
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        decodeEntities: true,
+        keepClosingSlash: true,
+        sortAttributes: true,
+      },
+      renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
+        headless: true, // Display the browser window when rendering. Useful for debugging.
+      }),
+    }),
+    new HtmlCriticalWebpackPlugin({
+      base: path.resolve('dist'),
+      src: 'index.html',
+      dest: 'index.html',
+      inline: true,
+      minify: true,
+      extract: true,
+      dimensions: [
+        {
+          height: 200,
+          width: 500,
+        },
+        {
+          height: 900,
+          width: 1300,
+        },
+      ],
+      ignore: ['@font-face', /some-regexp/],
+      penthouse: {
+        blockJSRequests: false,
       },
     }),
     env.raw.BUNDLE_ANALYZER !== 'false' &&

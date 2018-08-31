@@ -2,6 +2,7 @@
 
 :root {
   --background-color: yellow;
+  --background-green: #ff0;
 }
 
 .welcome {
@@ -15,4 +16,8 @@
   & .username {
     font-weight: normal;
   }
+}
+
+.unused_for_test {
+  color: var(--header-font-color);
 }
