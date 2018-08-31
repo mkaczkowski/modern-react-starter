@@ -1,20 +1,39 @@
 import path from 'path';
+import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
+import ManifestPlugin from 'webpack-manifest-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import PostcssPresetEnv from 'postcss-preset-env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
+import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
+import getClientEnvironment from './env';
+import getMetaData from './metadata';
+
+
+const env = getClientEnvironment('production', '/');
+const metadata = getMetaData(env.raw);
 
 export default {
   mode: 'production',
   bail: true,
   devtool: false,
-  entry: ['babel-polyfill', path.resolve('src/index.js')],
+  entry: [path.resolve('src/index.js')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
     extensions: ['.js', '.json'],
+    alias: {
+      '@assets': path.resolve('src/assets'),
+      modernizr$: path.resolve('.modernizrrc'),
+    },
   },
   output: {
     path: path.resolve('dist'),
@@ -28,6 +47,14 @@ export default {
       name: 'vendors',
     },
     runtimeChunk: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: false // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   module: {
     strictExportPresence: true,
@@ -49,7 +76,7 @@ export default {
             use: {
               loader: 'babel-loader',
               options: {
-                cacheDirectory: true,
+                cacheDirectory: false,
                 highlightCode: true,
               },
             },
@@ -70,7 +97,23 @@ export default {
                 options: {
                   sourceMap: false,
                   ident: 'postcss',
-                  plugins: () => [PostcssPresetEnv()],
+                  plugins: () => [
+                    PostcssPresetEnv({
+                      stage: false,
+                      features: {
+                        // https://preset-env.cssdb.org/features
+                        // 'custom-properties': {
+                        //   variables: {
+                        //     'background-color': 'blue',
+                        //     'header-font-color': 'red',
+                        //   },
+                        //   preserve: false,
+                        //   warnings: true,
+                        // },
+                        'nesting-rules': true,
+                      },
+                    }),
+                  ],
                 },
               },
             ],
@@ -94,21 +137,27 @@ export default {
             ],
           },
           {
-            test: /\.(jpe?g|png|gif|ico)$/i,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  name: '[name].[ext]',
-                },
-              },
-            ],
+            test: /\.modernizrrc.js$/,
+            use: ['modernizr-loader'],
+          },
+          {
+            test: /\.modernizrrc(\.json)?$/,
+            use: ['modernizr-loader', 'json-loader'],
+          },
+          {
+            test: /\.(jpe?g|jpg|gif|png|ico|woff|woff2|eot|ttf|webp)$/,
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              emitFile: true,
+            },
           },
         ],
       },
     ],
   },
   plugins: [
+    new webpack.DefinePlugin(env.stringified),
     new CleanWebpackPlugin(path.resolve('dist'), { root: path.resolve('.') }),
     new StyleLintPlugin({
       context: path.resolve('src'),
@@ -121,8 +170,44 @@ export default {
       filename: '[name].[contenthash:8].css',
       chunkFilename: '[name].[contenthash:8].chunk.css',
     }),
+    new FaviconsWebpackPlugin({
+      logo: './src/assets/favicon.png',
+      prefix: '',
+      background: '#ffffff',
+      emitStats: false,
+      persistentCache: false,
+      icons: {
+        appleStartup: false,
+      },
+    }),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'modern-react-starter-pwa',
+      filename: 'service-worker.js',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      mergeStaticsConfig: true, // if false you won't see any wpack-emitted assets in your sw config
+      minify: true,
+      navigateFallback: '/index.html',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }),
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json',
+    }),
+    new WebpackPwaManifest({
+      ...metadata,
+      ios: true,
+      inject: true,
+      icons: [
+        {
+          src: path.resolve('src/assets/favicon.png'),
+          sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+        },
+      ],
+    }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
+      title: metadata.name,
+      description: metadata.description,
+      manifest: metadata.filename,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -136,7 +221,12 @@ export default {
         minifyURLs: true,
       },
     }),
-  ],
+    env.raw.BUNDLE_ANALYZER !== 'false' &&
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: true,
+      }),
+  ].filter(plugin => plugin !== false),
   node: {
     dgram: 'empty',
     fs: 'empty',

@@ -1,7 +1,7 @@
 module.exports = {
   roots: ['<rootDir>'],
   collectCoverageFrom: ['src/**/*.js'],
-  testURL: 'http://localhost:3000/',
+  testURL: 'http://localhost/',
   setupFiles: [],
   testMatch: ['<rootDir>/src/**/?(*.)spec.js'],
   testEnvironment: 'node',
@@ -14,5 +14,6 @@ module.exports = {
   moduleFileExtensions: ['js', 'json', 'node'],
   moduleNameMapper: {
     '^.+\\.module\\.css$': 'idinfo-obj-proxy',
+    '^@assets(.*)$': '<rootDir>/src/assets',
   },
 };

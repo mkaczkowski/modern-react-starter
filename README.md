@@ -13,6 +13,13 @@ React boilerplate for everyone
 * Linters (ESLint, Stylelint) + [Prettier](https://prettier.io) - Tweak React components in real time ⚛️⚡️
 * [Docz](https://www.docz.site/) - Document your code with mdx
 
+- flow-runtime
+- dotenv
+- bundle analyzer
+- pwa
+- favicon generator
+- modernizr
+
 ## 🔧 Installation
 
 Clone repository to your local workspace:

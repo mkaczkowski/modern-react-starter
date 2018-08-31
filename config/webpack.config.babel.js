@@ -6,6 +6,9 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddleware';
 import PostcssPresetEnv from 'postcss-preset-env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
+import getClientEnvironment from './env';
+
+const env = getClientEnvironment('development');
 
 export default {
   mode: 'development',
@@ -14,6 +17,10 @@ export default {
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
     extensions: ['.js', '.json'],
+    alias: {
+      '@assets': path.resolve('src/assets'),
+      modernizr$: path.resolve('.modernizrrc'),
+    },
   },
   output: {
     path: path.resolve('.tmp'),
@@ -71,7 +78,13 @@ export default {
                 options: {
                   sourceMap: true,
                   ident: 'postcss',
-                  plugins: () => [PostcssPresetEnv()],
+                  plugins: () => [PostcssPresetEnv({
+                    stage: false,
+                    features: {
+                      // https://preset-env.cssdb.org/features
+                      'nesting-rules': true,
+                    }
+                  })],
                 },
               },
             ],
@@ -92,21 +105,22 @@ export default {
             ],
           },
           {
-            test: /\.(jpe?g|png|gif|ico)$/i,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  name: '[name].[ext]',
-                },
-              },
-            ],
+            test: /\.modernizrrc.js$/,
+            use: ['modernizr-loader'],
+          },
+          {
+            test: /\.(jpe?g|jpg|gif|ico|png|woff|woff2|eot|ttf|webp)$/,
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
           },
         ],
       },
     ],
   },
   plugins: [
+    new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
     new StyleLintPlugin({
       context: path.resolve('src'),

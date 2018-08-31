@@ -1,11 +1,17 @@
 @import './../styles/variables.css';
 
-.welcome {
-  color: var(--header-font-color);
+:root {
+  --background-color: yellow;
+}
 
+.welcome {
+  background: var(--background-color);
+  color: var(--header-font-color);
   font-size: 3rem;
+
   text-align: center;
-  transform: rotate(-5deg);
+  transform: rotate(-5.1deg);
+
   & .username {
     font-weight: normal;
   }

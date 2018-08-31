@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en" data-reactroot="">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Recommended Meta Tags-->
+  <meta charSet="utf-8"/>
+  <meta name="language" content="en">
+  <meta http-equiv="content-type" content="text/html">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <base href="/" />
-  <title>DaftCode React Starter</title>
+  <meta name="author" content="<%= htmlWebpackPlugin.options.author %>">
+
+  <!--Search Engine Optimization Meta Tags-->
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta name="description" content="<%= htmlWebpackPlugin.options.description %>"/>
+  <meta name="keywords" content="HTML,CSS,JavaScript,React">
+  <meta name=”robots” content=”index,follow”>
+
+  <!--Optional Meta Tags-->
+  <meta name="title" content="<%= htmlWebpackPlugin.options.title %>">
+  <meta name="google" content="notranslate" />
+
+  <!--Meta Tags for HTML pages on Mobile-->
+  <meta name="format-detection" content="telephone=yes"/>
+  <meta name="HandheldFriendly" content="true"/>
+  <meta name="format-detection" content="telephone=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"/>
+
+  <!--customize pinned sites for IE/EDGE -->
+  <meta name="application-name" content="<%= htmlWebpackPlugin.options.title %>">
+  <meta name="msapplication-tooltip" content="<%= htmlWebpackPlugin.options.description %>"/>
+  <meta name="msapplication-starturl" content="/"/>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="<%= htmlWebpackPlugin.options.manifest %>"/>
+
+  <!-- icons / to be generated -->
 </head>
-
 <body>
-  <div id="root"></div>
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+<div id="root"></div>
 </body>
-
 </html>
