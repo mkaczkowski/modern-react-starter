@@ -258,7 +258,7 @@ export default {
         blockJSRequests: false,
       },
     }),
-    env.raw.BUNDLE_ANALYZER !== 'false' &&
+    env.raw.CI !== 'true' && env.raw.BUNDLE_ANALYZER !== 'false' &&
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: true,
