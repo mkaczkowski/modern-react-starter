@@ -5,11 +5,9 @@ import './index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-if (process.env.SERVICE_WORKER === 'true') {
-  // eslint-disable-next-line func-names,wrap-iife,space-before-function-paren
-  (function() {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  })();
-}
+// eslint-disable-next-line func-names,wrap-iife,space-before-function-paren
+(function() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+})();
