@@ -11,8 +11,8 @@ type HomeProps = {
 };
 
 type HomeState = {
-  welcomeText: string
-}
+  welcomeText: string,
+};
 
 class Home extends React.Component<HomeProps, HomeState> {
   state = { welcomeText: 'Hello' };

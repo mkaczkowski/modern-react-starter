@@ -61,6 +61,7 @@ export default {
         loader: 'eslint-loader',
         options: {
           emitError: true,
+          failOnError: true,
         },
         exclude: [/[/\\\\]node_modules[/\\\\]/],
       },
@@ -73,7 +74,7 @@ export default {
               loader: 'babel-loader',
               options: {
                 cacheDirectory: false,
-                highlightCode: true,
+                highlightCode: false,
               },
             },
           },
@@ -97,15 +98,6 @@ export default {
                     PostcssPresetEnv({
                       stage: false,
                       features: {
-                        // https://preset-env.cssdb.org/features
-                        // 'custom-properties': {
-                        //   variables: {
-                        //     'background-color': 'blue',
-                        //     'header-font-color': 'red',
-                        //   },
-                        //   preserve: false,
-                        //   warnings: true,
-                        // },
                         'nesting-rules': true,
                       },
                     }),
@@ -229,6 +221,7 @@ export default {
         sortAttributes: true,
       },
       renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
+        skipThirdPartyRequests: true,
         headless: true, // Display the browser window when rendering. Useful for debugging.
       }),
     }),
@@ -254,7 +247,8 @@ export default {
         blockJSRequests: false,
       },
     }),
-    env.raw.CI !== 'true' && env.raw.BUNDLE_ANALYZER !== 'false' &&
+    env.raw.CI !== 'true' &&
+      env.raw.BUNDLE_ANALYZER !== 'false' &&
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: true,

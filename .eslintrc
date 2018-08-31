@@ -18,6 +18,8 @@
     "react/prop-types": "off", // disable prop tyles check
     "no-confusing-arrow": "off",
     "implicit-arrow-linebreak": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "max-len": ["error", { "code": 120 }]
   }
 }
