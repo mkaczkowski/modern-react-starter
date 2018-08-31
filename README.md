@@ -1,6 +1,6 @@
-# ⚛ modern-react-starter
+# ⚛ modern-react-starter-pwa
 
-Cutting edge React JS boilerplate for everyone
+Cutting edge React PWA boilerplate for everyone
 
 ## 🕹 Features
 * [React (v16.4.2)](https://reactjs.org) - JavaScript library for building user interfaces
