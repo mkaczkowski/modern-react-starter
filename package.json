@@ -23,8 +23,6 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.0.0",
-    "@babel/plugin-syntax-decorators": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "7.0.0",
@@ -62,7 +60,6 @@
     "postcss-preset-env": "^5.3.0",
     "prettier": "^1.11.1",
     "react-dev-utils": "^5.0.1",
-    "react-icons-kit": "^1.1.7",
     "react-svg-loader": "^2.1.0",
     "script-ext-html-webpack-plugin": "^2.0.1",
     "serve": "^10.0.0",
@@ -88,7 +85,7 @@
     "production": [
       ">1%",
       "not op_mini all",
-      "ie > 9"
+      "not ie > 0"
     ]
   }
 }

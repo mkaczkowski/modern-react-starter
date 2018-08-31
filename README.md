@@ -1,6 +1,6 @@
-# ⚛ daftcode-react-starter
+# ⚛ modern-react-starter
 
-React boilerplate for everyone
+Cutting edge React JS boilerplate for everyone
 
 ## 🕹 Features
 * [React (v16.4.2)](https://reactjs.org) - JavaScript library for building user interfaces
@@ -24,13 +24,13 @@ React boilerplate for everyone
 
 Clone repository to your local workspace:
 ```bash
-git clone https://github.com/mkaczkowski/daftcode-react-starter.git
+git clone https://github.com/mkaczkowski/modern-react-starter.git
 ```
 
 Install project dependencies using npm or yarn:
 
 ```bash
-cd daftcode-react-starter
+cd modern-react-starter
 yarn or npm install
 ```
 
