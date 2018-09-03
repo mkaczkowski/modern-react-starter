@@ -75,6 +75,14 @@ export default {
               options: {
                 cacheDirectory: false,
                 highlightCode: false,
+                plugins: [
+                  [
+                    'react-css-modules',
+                    {
+                      generateScopedName: '[hash:base64]',
+                    },
+                  ],
+                ],
               },
             },
           },
@@ -87,6 +95,8 @@ export default {
                 options: {
                   sourceMap: false,
                   importLoaders: 1,
+                  modules: true,
+                  localIdentName: '[hash:base64]',
                 },
               },
               {

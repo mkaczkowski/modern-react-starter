@@ -56,7 +56,16 @@ export default {
               options: {
                 cacheDirectory: true,
                 highlightCode: true,
-                plugins: ['react-hot-loader/babel'],
+                plugins: [
+                  'react-hot-loader/babel',
+                  [
+                    'react-css-modules',
+                    {
+                      generateScopedName: '[name]__[local]___[hash:base64:5]',
+                      webpackHotModuleReloading: true,
+                    },
+                  ],
+                ],
               },
             },
           },
@@ -71,6 +80,8 @@ export default {
                 options: {
                   sourceMap: true,
                   importLoaders: 1,
+                  modules: true,
+                  localIdentName: '[name]__[local]___[hash:base64:5]',
                 },
               },
               {
@@ -78,13 +89,15 @@ export default {
                 options: {
                   sourceMap: true,
                   ident: 'postcss',
-                  plugins: () => [PostcssPresetEnv({
-                    stage: false,
-                    features: {
-                      // https://preset-env.cssdb.org/features
-                      'nesting-rules': true,
-                    }
-                  })],
+                  plugins: () => [
+                    PostcssPresetEnv({
+                      stage: false,
+                      features: {
+                        // https://preset-env.cssdb.org/features
+                        'nesting-rules': true,
+                      },
+                    }),
+                  ],
                 },
               },
             ],

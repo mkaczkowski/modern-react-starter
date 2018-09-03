@@ -14,6 +14,7 @@ type HomeState = {
   welcomeText: string,
 };
 
+
 class Home extends React.Component<HomeProps, HomeState> {
   state = { welcomeText: 'Hello' };
 
@@ -23,9 +24,9 @@ class Home extends React.Component<HomeProps, HomeState> {
 
     return (
       <>
-        <h1 className="welcome">
+        <h1 styleName="welcome">
           {welcomeText}
-          <span className="username">{`: ${username}`}</span>
+          <span styleName="username">{`: ${username}`}</span>
         </h1>
       </>
     );

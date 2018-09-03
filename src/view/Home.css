@@ -6,7 +6,7 @@
 }
 
 .welcome {
-  background: var(--background-color);
+  background: white;
   color: var(--header-font-color);
   font-size: 3rem;
 
