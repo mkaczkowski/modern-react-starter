@@ -1,17 +1,21 @@
-import { hot } from 'react-hot-loader';
 import * as React from 'react';
-import Home from './view/Home';
+import { hot } from 'react-hot-loader';
+import Skills from './view/skills';
+import Hero from './view/hero/Hero';
+import Introduction from './view/introduction';
+import Contact from './view/contact';
 
-import './styles/theme.css';
+import './styles/index.css';
 
-class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    return (
-      <main>
-        <Home username="DaftCoder" />
-      </main>
-    );
-  }
+function App() {
+  return (
+    <main>
+      <Hero />
+      <Introduction />
+      <Skills />
+      <Contact />
+    </main>
+  );
 }
 
 export default hot(module)(App);

@@ -7,12 +7,14 @@ import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddle
 import PostcssPresetEnv from 'postcss-preset-env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import getClientEnvironment from './env';
+import postcssConfig from './postcss.config';
 
 const env = getClientEnvironment('development');
+const shouldUseSourceMap = env.raw.GENERATE_SOURCE_MAP !== 'false';
 
 export default {
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: shouldUseSourceMap ? 'cheap-module-source-map' : false,
   entry: ['react-dev-utils/webpackHotDevClient', path.resolve('src/index.js')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
@@ -74,11 +76,14 @@ export default {
             use: [
               {
                 loader: 'style-loader',
+                options: {
+                  sourceMap: shouldUseSourceMap,
+                },
               },
               {
                 loader: 'css-loader',
                 options: {
-                  sourceMap: true,
+                  sourceMap: shouldUseSourceMap,
                   importLoaders: 1,
                   modules: true,
                   localIdentName: '[name]__[local]___[hash:base64:5]',
@@ -87,16 +92,10 @@ export default {
               {
                 loader: 'postcss-loader',
                 options: {
-                  sourceMap: true,
+                  sourceMap: shouldUseSourceMap,
                   ident: 'postcss',
                   plugins: () => [
-                    PostcssPresetEnv({
-                      stage: false,
-                      features: {
-                        // https://preset-env.cssdb.org/features
-                        'nesting-rules': true,
-                      },
-                    }),
+                    PostcssPresetEnv(postcssConfig),
                   ],
                 },
               },
@@ -118,8 +117,9 @@ export default {
             ],
           },
           {
-            test: /\.modernizrrc.js$/,
-            use: ['modernizr-loader'],
+            type: 'javascript/auto',
+            test: /modernizrrc(\.json)?$/,
+            use: ['modernizr-loader', 'json-loader'],
           },
           {
             test: /\.(jpe?g|jpg|gif|ico|png|woff|woff2|eot|ttf|webp)$/,

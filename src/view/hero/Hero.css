@@ -1,0 +1,19 @@
+@import './../../styles/variables.css';
+@import './../../styles/mixins.css';
+
+.wrapper {
+  position: relative;
+
+  @media (--phone) {
+    background: red;
+  }
+  @media (--tablet) {
+    background: yellow;
+  }
+  @media (--desktop) {
+    background: orange;
+  }
+  @media (--large-desktop) {
+    background: gray;
+  }
+}

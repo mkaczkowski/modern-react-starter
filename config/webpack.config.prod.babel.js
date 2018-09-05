@@ -18,9 +18,12 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import HtmlCriticalWebpackPlugin from 'html-critical-webpack-plugin';
 import getClientEnvironment from './env';
 import getMetaData from './metadata';
+import postcssConfig from './postcss.config';
 
 const env = getClientEnvironment('production', '/');
 const metadata = getMetaData(env.raw);
+
+const isPWA = env.raw.PWA_ENABLED !== 'false';
 
 export default {
   mode: 'production',
@@ -105,12 +108,7 @@ export default {
                   sourceMap: false,
                   ident: 'postcss',
                   plugins: () => [
-                    PostcssPresetEnv({
-                      stage: false,
-                      features: {
-                        'nesting-rules': true,
-                      },
-                    }),
+                    PostcssPresetEnv(postcssConfig),
                   ],
                 },
               },
@@ -168,7 +166,7 @@ export default {
       filename: '[name].[contenthash:8].css',
       chunkFilename: '[name].[contenthash:8].chunk.css',
     }),
-    new FaviconsWebpackPlugin({
+    isPWA && new FaviconsWebpackPlugin({
       logo: './src/assets/favicon.png',
       prefix: '',
       background: '#ffffff',
@@ -178,7 +176,7 @@ export default {
         appleStartup: false,
       },
     }),
-    new SWPrecacheWebpackPlugin({
+    isPWA && new SWPrecacheWebpackPlugin({
       cacheId: 'modern-react-starter-pwa',
       filename: 'service-worker.js',
       dontCacheBustUrlsMatching: /\.\w{8}\./,
@@ -187,10 +185,10 @@ export default {
       navigateFallback: '/index.html',
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
-    new ManifestPlugin({
+    isPWA && new ManifestPlugin({
       fileName: 'asset-manifest.json',
     }),
-    new WebpackPwaManifest({
+    isPWA && new WebpackPwaManifest({
       ...metadata,
       ios: true,
       inject: true,
