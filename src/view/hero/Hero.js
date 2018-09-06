@@ -4,7 +4,7 @@ import {} from './Hero.css';
 
 const Hero = () => (
   <div styleName="wrapper">
-    NOTHING HERE
+    NOTHING HE
   </div>
 );
 

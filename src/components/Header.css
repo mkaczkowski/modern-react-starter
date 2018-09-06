@@ -1,0 +1,54 @@
+@import './../styles/variables.css';
+
+:root {
+  --header-background: transparent;
+  --header-background-scrolled: yellow;
+}
+
+header.menu {
+  position: fixed;
+  top:0;
+  right: 0;
+  left:0;
+  padding: 0 1rem;
+  width: 100%;
+  background: var(--header-background);
+  overflow: hidden;
+  z-index: 1;
+  transition-duration: 0.5s;
+  transition-property: transform, height, background-color;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+
+  &.scrolled {
+    background: var(--header-background-scrolled);
+  }
+}
+
+nav.desktop {
+  margin: 0 2.5rem 0 auto;
+  & ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    & > :not(:last-child) {
+      margin-right: 1.5rem;
+    }
+  }
+}
+
+nav.mobile {
+  margin-right: 2.5rem;
+  z-index: 1;
+}
+
+.inner-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  margin: 0 auto;
+}

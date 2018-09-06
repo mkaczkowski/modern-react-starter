@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddleware';
@@ -10,7 +9,8 @@ import getClientEnvironment from './env';
 import postcssConfig from './postcss.config';
 
 const env = getClientEnvironment('development');
-const shouldUseSourceMap = env.raw.GENERATE_SOURCE_MAP !== 'false';
+const shouldUseSourceMap = env.raw.GENERATE_SOURCE_MAP === 'true';
+const shouldUseLinters = env.raw.LINTERS_DISABLED !== 'true';
 
 export default {
   mode: 'development',
@@ -39,7 +39,7 @@ export default {
   module: {
     strictExportPresence: true,
     rules: [
-      {
+      shouldUseLinters && {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'eslint-loader',
@@ -130,23 +130,22 @@ export default {
           },
         ],
       },
-    ],
+    ].filter(rule => rule !== false)
   },
   plugins: [
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
-    new StyleLintPlugin({
+    shouldUseLinters && new StyleLintPlugin({
       context: path.resolve('src'),
       files: '**/*.css',
       emitErrors: false,
       failOnError: false,
       quiet: false,
     }),
-    new CopyWebpackPlugin([path.resolve('public')]),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
     }),
-  ],
+  ].filter(plugin => plugin !== false),
   devServer: {
     contentBase: '.tmp',
     watchContentBase: true,

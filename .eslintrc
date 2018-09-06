@@ -16,10 +16,13 @@
     "react/no-danger": "error", // airbnb is using warn
     "react/no-direct-mutation-state": "error", // airbnb is disabling this rule
     "react/prop-types": "off", // disable prop tyles check
+    "react/sort-comp": "off",
+    "spaced-comment": "off",
     "no-confusing-arrow": "off",
     "implicit-arrow-linebreak": "off",
     "comma-dangle": "off",
     "arrow-parens": "off",
+    "lines-between-class-members": "off",
     "max-len": ["error", { "code": 120 }]
   }
 }
