@@ -114,18 +114,12 @@ class PropertiesProvider extends React.Component<PropertiesProviderProps, Proper
   };
 
   updateItem = ({ airbnbId, values }: Object) => {
-    const itemIndex = this.findItemIndex(airbnbId);
-    const id = airbnbId === -1 ? Math.floor(Math.random() * 100000) : airbnbId;
-    const newItem = { ...values, id };
+    const itemIndex = _findIndex(this.state.properties, { airbnbId });
+    const newItem = { ...values };
     return update(this.state.properties, { [itemIndex]: { $set: newItem } });
   };
 
   updateSection = ({ values }: Object) => update(this.state.properties, { $merge: { ...values } });
-
-  /**
-   * Utils
-   */
-  findItemIndex = (airbnbId: number) => _findIndex(this.state.properties, { airbnbId });
 
   render() {
     //context properties available from all subscribed consumers

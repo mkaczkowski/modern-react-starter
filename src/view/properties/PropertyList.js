@@ -29,9 +29,7 @@ const PropertyList = ({ properties, ...restProps }: PropertiesContextProps) => (
     {properties.length > 0 ? (
       properties.map((property: Property) => <PropertyItem property={property} {...restProps} />)
     ) : (
-      <>
-        <h2>No properties were found for a selected locaton. Please try with another location.</h2>
-      </>
+      <h2>No properties were found for a selected locaton. Please try with another location.</h2>
     )}
   </div>
 );
