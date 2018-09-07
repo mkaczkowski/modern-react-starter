@@ -20,13 +20,16 @@
     "operator-linebreak": ["error", "after"], // aibnb is disabling this rule
     "react/destructuring-assignment": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js"] }], // airbnb is using .jsx
-    "react/jsx-max-props-per-line": ["error", { "maximum": 5 }], // airbnb is disabling this rule
+    "react/jsx-max-props-per-line": ["error", { "maximum": 7 }], // airbnb is disabling this rule
     "react/jsx-one-expression-per-line": "off",
     "react/no-danger": "error", // airbnb is using warn
     "react/no-direct-mutation-state": "error", // airbnb is disabling this rule
     "react/prop-types": "off", // disable prop tyles check
     "react/require-default-props": "off",
     "react/sort-comp": "off",
-    "spaced-comment": "off"
+    "spaced-comment": "off",
+    "prefer-destructuring": "off",
+     "jsx-a11y/label-has-for":"off",
+     "jsx-a11y/label-has-associated-control":"off"
   }
 }

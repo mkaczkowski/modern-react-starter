@@ -1,11 +1,7 @@
 @import '../../styles/variables.css';
 
-:root {
-}
-
-footer {
-}
-
 .inner-wrapper{
-
+  @media (--phone) {
+    text-align: center;
+  }
 }

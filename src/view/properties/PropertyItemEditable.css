@@ -1,0 +1,76 @@
+.field {
+  /*BASE*/
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  label {
+    padding-bottom: 0.5em;
+  }
+  > *:not(label):not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+}
+
+.box {
+  /*BASE*/
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+
+
+  padding: 0.7rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.2rem;
+}
+
+
+.input{
+  /*BOX*/
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  padding: 0.7rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.2rem;
+
+
+  display: block;
+  width: 100%;
+  padding: 0 0.5em;
+  height: 2.5em;
+  background-color: white;
+  &::placeholder {
+    color: currentcolor;
+    opacity: 0.5;
+  }
+}
+
+.label{
+  /*BASE*/
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+
+  display: inline-block;
+  font-weight: 600;
+}

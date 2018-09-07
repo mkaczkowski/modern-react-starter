@@ -4,7 +4,7 @@ import { Icon } from 'react-icons-kit';
 import styles from './Button.css';
 
 export type ButtonProps = {
-  children: any,
+  children?: any,
   type?: string,
   primary?: boolean,
   secondary?: boolean,

@@ -3,7 +3,6 @@ import React from 'react';
 import _throttle from 'lodash/throttle';
 import classnames from 'classnames';
 import styles from './Header.css';
-// import Hamburger from '../hamburger/Hamburger';
 
 type HeaderState = {
   isScrolled: boolean,
@@ -44,25 +43,6 @@ class Header extends React.Component<null, HeaderState> {
     this.setState({ isScrolled });
   };
 
-  renderDesktopNavigation = () => (
-    <nav styleName="desktop">
-      <ul>
-        <li>
-          <button type="button">Sign In</button>
-        </li>
-        <li>
-          <button type="button">Register</button>
-        </li>
-      </ul>
-    </nav>
-  );
-
-  renderMobileNavigation = () => (
-    <nav styleName="mobile">
-      <span>Menu</span>
-    </nav>
-  );
-
   render() {
     const { isScrolled } = this.state;
 
@@ -71,8 +51,7 @@ class Header extends React.Component<null, HeaderState> {
     return (
       <header styleName="menu" className={className}>
         <div styleName="inner-wrapper">
-          {this.renderDesktopNavigation()}
-          {this.renderMobileNavigation()}
+          <h1>Properties Explorer</h1>
         </div>
       </header>
     );

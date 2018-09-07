@@ -1,4 +1,6 @@
 @import 'variables.css';
+@import 'animations.css';
+@import 'common.css';
 
 html {
   font-size: 10px;
@@ -13,5 +15,7 @@ main {
   margin: 4rem auto 0;
   padding: 2rem;
   border-radius: 1rem;
-  background: var(--background-color);
 }
+
+
+

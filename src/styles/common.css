@@ -1,0 +1,29 @@
+.group {
+  display: flex;
+  /*  flex-direction: ${ifProp('vertical', 'column', 'row')};*/
+  & > *,
+  & > * .group-item {
+    min-height: 2.5em;
+    height: auto;
+  }
+  & > *:not(:first-child):not(:last-child),
+  & > *:not(:first-child):not(:last-child) .group-item {
+    border-radius: 0;
+    /*border-${ifProp('vertical', 'top', 'left')}-width: ${ifProp('gap', '1px', '0')};*/
+  }
+  & > *:not(:first-child),
+  & > *:not(:first-child) .group-item {
+    /*margin-left: ${ifProp('gap', '0.5rem', '0')};*/
+  }
+  & > *:first-child,
+  & > *:first-child .group-item {
+    /*border-${ifProp('vertical', 'bottom-left', 'top-right')}-radius: 0;*/
+    border-bottom-right-radius: 0;
+  }
+  & > *:last-child,
+  & > *:last-child .group-item {
+    /*border-${ifProp('vertical', 'top-right', 'bottom-left')}-radius: 0;
+  border-${ifProp('vertical', 'top', 'left')}-width: ${ifProp('gap', '1px', '0')};*/
+    border-top-left-radius: 0;
+  }
+}
