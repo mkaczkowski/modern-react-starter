@@ -1,5 +1,5 @@
-// flow-typed signature: b88eac8c33758c6efd4f04fe38f7475a
-// flow-typed version: 33af59e963/jest_v23.x.x/flow_>=v0.39.x
+// flow-typed signature: cc8423cabfe4542ca9b49e0777294cf2
+// flow-typed version: 7162f9ef44/jest_v23.x.x/flow_>=v0.39.x
 
 type JestMockFn<TArguments: $ReadOnlyArray<*>, TReturn> = {
   (...args: TArguments): TReturn,
@@ -119,7 +119,9 @@ type JestMatcherResult = {
   pass: boolean
 };
 
-type JestMatcher = (actual: any, expected: any) => JestMatcherResult;
+type JestMatcher = (actual: any, expected: any) =>
+  | JestMatcherResult
+  | Promise<JestMatcherResult>;
 
 type JestPromiseType = {
   /**

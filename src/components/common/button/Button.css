@@ -1,0 +1,75 @@
+@import '../../../styles/variables.css';
+
+:root {
+  --button-background: var(--color-white);
+  --button-background-primary: var(--color-blue);
+  --button-background-secondary: var(--color-red);
+  --button-background-icon: transparent;
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  flex: none;
+  font-family: inherit;
+  font-size: 100%;
+  justify-content: center;
+  margin: 0;
+  outline: none;
+  padding: 0 0.68em;
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: baseline;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    box-shadow: inset 0 0 999em rgba(0, 0, 0, 0.1);
+  }
+
+  &:active,
+  &.active {
+    box-shadow: inset 0 0 999em rgba(0, 0, 0, 0.2);
+  }
+
+  &:after {
+    display: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+
+  &[disabled] {
+    pointer-events: none;
+    &:after {
+      display: block;
+    }
+  }
+}
+
+.icon {
+  background-color: var(--button-background-icon);
+  border: none;
+  border-radius: 100%;
+  padding: 0.68em;
+}
+
+.primary {
+  background-color: var(--button-background-primary);
+}
+
+.secondary {
+  background-color: var(--button-background-secondary);
+}
+
