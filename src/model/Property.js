@@ -12,4 +12,5 @@ export type Property = {
   numberOfBedrooms: number,
   numberOfBathrooms: number,
   incomeGenerated: number,
+  location: number[],
 };

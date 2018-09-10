@@ -4,128 +4,90 @@
  */
 import * as React from 'react';
 import _findIndex from 'lodash/findIndex';
-import update from 'immutability-helper';
+import updateImmutable from 'immutability-helper';
+import * as PropertyApi from '../api/property';
 import type { Property } from '../model/Property';
+import type { GetPropertiesAPI, UpdatePropertyAPI } from '../api/property';
 
-export type PropertiesProviderState = {
-  properties: Property[],
-};
+export type PropertiesProviderState = { isLoading: boolean, properties: Property[] };
 
 type PropertiesProviderProps = {
   children: any,
 };
 
 export type ActionType = {
-  values?: any,
-  airbnbId: number,
-  callback?: any,
+  values?: Property,
+  onSuccess: () => void,
+  onError: (err: any) => void,
 };
 
 export type PropertiesContextProps = {
+  +isLoading: boolean,
   +properties: Property[],
-  +update: (params: ActionType) => void,
+  api: {
+    +update: (params: ActionType) => Promise<any>,
+    +fetchAll: () => Promise<any>,
+    +fetchByCoordinates: () => Promise<any>,
+  },
 };
-
-const DEFAULT_DATA: Property[] = [
-  {
-    owner: 'carlos',
-    address: {
-      line1: 'Flat 5',
-      line4: '7 Westbourne Terrace',
-      postCode: 'W2 3UL',
-      city: 'London',
-      country: 'U.K.',
-    },
-    airbnbId: 3512500,
-    numberOfBedrooms: 1,
-    numberOfBathrooms: 1,
-    incomeGenerated: 2000.34,
-  },
-  {
-    owner: 'ankur',
-    address: {
-      line1: '4',
-      line2: 'Tower Mansions',
-      line3: 'Off Station road',
-      line4: '86-87 Grange Road',
-      postCode: 'SE1 3BW',
-      city: 'London',
-      country: 'U.K.',
-    },
-    airbnbId: 1334159,
-    numberOfBedrooms: 3,
-    numberOfBathrooms: 1,
-    incomeGenerated: 10000,
-  },
-  {
-    owner: 'elaine',
-    address: {
-      line1: '4',
-      line2: '332b',
-      line4: 'Goswell Road',
-      postCode: 'EC1V 7LQ',
-      city: 'London',
-      country: 'U.K.',
-    },
-    airbnbId: 12220057,
-    numberOfBedrooms: 2,
-    numberOfBathrooms: 2,
-    incomeGenerated: 1200,
-  },
-];
 
 //$FlowIssue
 export const PropertiesContext = React.createContext();
 
 class PropertiesProvider extends React.Component<PropertiesProviderProps, PropertiesProviderState> {
   state = {
+    isLoading: true,
     properties: [],
   };
 
-  componentDidMount() {
-    this.setState({ properties: DEFAULT_DATA });
-  }
-
-  /**
-   * Save properties to storage
-   * @param properties
-   * @param callback
-   */
-  persistProperties = (properties: Property[], callback?: () => void) => {
-    this.setState(() => ({ properties }), callback);
-    // Storage.save(properties);
+  fetch = async (query?: GetPropertiesAPI) => {
+    this.setState(() => ({ properties: [], isLoading: true }));
+    const properties = await PropertyApi.getProperties(query);
+    this.setState(() => ({ properties, isLoading: false }));
   };
 
-  /**
-   * Update properties entry
-   * @param itemId
-   * @param values
-   * @param callback
-   */
-  update = ({ airbnbId, values, callback }: ActionType) => {
-    let resultProperties;
-    if (airbnbId !== undefined) {
-      resultProperties = this.updateItem({ airbnbId, values });
-    } else {
-      resultProperties = this.updateSection({ values });
+  fetchAll = async () => this.fetch();
+
+  fetchByCoordinates = async () => {
+    // read coordinates from env variables
+    const coordinatesString = process.env.RESTRICT_COORDINATES;
+    const [latitude, longitude] = coordinatesString.split(' ');
+    const data: GetPropertiesAPI = {
+      latitude,
+      longitude,
+    };
+    return this.fetch(data);
+  };
+
+  update = async ({ values, onSuccess, onError }: ActionType) => {
+    const data: UpdatePropertyAPI = {
+      property: values,
+    };
+    try {
+      const updatedProperty = await PropertyApi.updateProperty(data);
+      this.refreshUpdatedProperty(updatedProperty);
+      onSuccess();
+    } catch (err) {
+      debugger;
+      onError(err);
     }
-
-    this.persistProperties(resultProperties, callback);
   };
 
-  updateItem = ({ airbnbId, values }: Object) => {
-    const itemIndex = _findIndex(this.state.properties, { airbnbId });
-    const newItem = { ...values };
-    return update(this.state.properties, { [itemIndex]: { $set: newItem } });
+  refreshUpdatedProperty = (property: Property) => {
+    const itemIndex = _findIndex(this.state.properties, { airbnbId: property.airbnbId });
+    this.setState(state => ({ properties: updateImmutable(state.properties, { [itemIndex]: { $set: property } }) }));
   };
-
-  updateSection = ({ values }: Object) => update(this.state.properties, { $merge: { ...values } });
 
   render() {
     //context properties available from all subscribed consumers
     const value: PropertiesContextProps = {
+      isLoading: this.state.isLoading,
       properties: this.state.properties,
-      update: this.update,
+      api: {
+        fetchAll: this.fetchAll,
+        fetchByCoordinates: this.fetchByCoordinates,
+        update: this.update,
+      },
     };
     //prettier-ignore
     return (

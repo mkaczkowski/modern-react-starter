@@ -144,6 +144,7 @@ export default {
     }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
+      google_maps_key: process.env.GOOGLE_API_KEY,
     }),
   ].filter(plugin => plugin !== false),
   devServer: {

@@ -1,6 +1,5 @@
 .wrapper {
   position: relative;
-  padding: 1rem;
   border: transparent dashed 1px;
   &:hover {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
@@ -18,14 +17,30 @@
   flex: 1;
   padding: 0 1rem;
   margin-left: 1.5rem;
-  line-height:1.4em;
-
-  /*  ${media.tablet`
-          text-align: center;
-          margin-top: 1.2rem;
-          margin-left: 0;
-      `};*/
+  line-height: 1.4em;
 }
 
+.row {
+  display: flex;
+  border-bottom: 1px solid black;
 
+  & > * {
+    padding: 1rem;
+    flex: 3;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 
+    & > * {
+      margin: 0 0 0.4rem;
+    }
+
+    &:first-child {
+      flex: 2;
+      border-right: none;
+    }
+    &:last-child {
+      flex: 2;
+      border-left: none;
+    }
+  }
+}

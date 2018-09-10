@@ -18,11 +18,12 @@ const handleKeyPress = evt => {
   }
 };
 
-const Button = ({ children, primary, secondary, icon, ...buttonProps }: ButtonProps) => {
+const Button = ({ children, primary, secondary, loading, icon, ...buttonProps }: ButtonProps) => {
   const className = classnames({
     [styles.primary]: primary,
     [styles.secondary]: secondary,
     [styles.icon]: !!icon,
+    [styles.loading]: !!loading,
   });
   return (
     <button className={className} type="button" onKeyPress={handleKeyPress} {...buttonProps}>

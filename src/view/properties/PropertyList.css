@@ -1,0 +1,8 @@
+.wrapper {
+  margin-top: 1rem;
+
+  & > nav {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+}

@@ -21,6 +21,7 @@
     "lodash": "^4.17.10",
     "modernizr": "^3.6.0",
     "prerender-spa-plugin": "^3.4.0",
+    "qs": "^6.5.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-hot-loader": "^4.3.6",

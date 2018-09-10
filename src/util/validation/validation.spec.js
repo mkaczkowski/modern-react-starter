@@ -1,4 +1,4 @@
-import { email, number, required } from '../validation';
+import { number, required } from './validation';
 
 describe('Validators', () => {
   describe('required', () => {
@@ -12,20 +12,6 @@ describe('Validators', () => {
       const value = '';
       const result = required()(value);
       expect(result).toEqual('Required');
-    });
-  });
-
-  describe('email', () => {
-    it('should pass', () => {
-      const value = 'test@gmail.com';
-      const result = email()(value);
-      expect(result).toBeUndefined();
-    });
-
-    it('should fail with invalid value', () => {
-      const value = 'test';
-      const result = email()(value);
-      expect(result).toEqual('Invalid email');
     });
   });
 

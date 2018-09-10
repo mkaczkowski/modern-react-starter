@@ -8,13 +8,13 @@ export type FormButtonsType = ActionButtonsType & {
   isSubmitting: boolean,
 };
 
-const FormButtons = ({ airbnbId, isSubmitting, onCancel }: FormButtonsType) => (
+const FormButtons = ({ isSubmitting, onCancel }: FormButtonsType) => (
   <div styleName="wrapper">
     <div className="group gap">
-      <Button type="button" disabled={isSubmitting} onClick={() => onCancel({ airbnbId })}>
+      <Button type="button" disabled={isSubmitting} onClick={onCancel}>
         Cancel
       </Button>
-      <Button type="submit" primary disabled={isSubmitting}>
+      <Button type="submit" primary disabled={isSubmitting} loading={isSubmitting}>
         Save
       </Button>
     </div>

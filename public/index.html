@@ -32,6 +32,8 @@
   <!-- PWA manifest -->
   <link rel="manifest" href="<%= htmlWebpackPlugin.options.manifest %>"/>
 
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.google_maps_key %>&callback=initMap"
+          type="text/javascript"></script>
   <!-- icons / to be generated -->
 </head>
 <body>

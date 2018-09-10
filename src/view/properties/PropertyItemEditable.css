@@ -22,55 +22,38 @@
 .box {
   /*BASE*/
   margin: 0;
-  padding: 0;
-  border: 0;
   font-size: 100%;
   font-family: inherit;
   vertical-align: baseline;
   box-sizing: border-box;
-
-
   padding: 0.7rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.2rem;
 }
 
-
-.input{
-  /*BOX*/
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-  box-sizing: border-box;
-  padding: 0.7rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.2rem;
-
-
+input {
   display: block;
   width: 100%;
-  padding: 0 0.5em;
-  height: 2.5em;
-  background-color: white;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #5f5f5f;
+  background-color: transparent;
+  border: 1px solid #5f5f5f;
+  border-radius: 0.2rem;
+  outline: none;
+
   &::placeholder {
     color: currentcolor;
     opacity: 0.5;
   }
 }
 
-.label{
-  /*BASE*/
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-  box-sizing: border-box;
-
+label {
+  font-size: 1.2rem;
   display: inline-block;
   font-weight: 600;
+}
+
+.required {
+  color: red;
 }

@@ -202,6 +202,7 @@ export default {
       template: path.resolve('public/index.html'),
       title: metadata.name,
       description: metadata.description,
+      google_maps_key: process.env.GOOGLE_API_KEY,
       manifest: metadata.filename,
       minify: {
         removeComments: true,

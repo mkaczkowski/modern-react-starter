@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  width: 60%;
+  max-width: 300px;
+  margin: 0 auto;
+
+  & > button {
+    flex: 1 1 0;
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+}

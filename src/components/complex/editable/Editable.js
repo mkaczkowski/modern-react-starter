@@ -17,7 +17,7 @@ export type EditableItemState = {|
 
 class Editable extends React.PureComponent<EditableItemProps, EditableItemState> {
   state = {
-    isEdited: this.props.property.airbnbId === -1,
+    isEdited: false,
   };
 
   onShowEdit = () => this.setState(() => ({ isEdited: true }));
@@ -26,6 +26,7 @@ class Editable extends React.PureComponent<EditableItemProps, EditableItemState>
 
   render() {
     const { isEdited } = this.state;
+    const enchantSuccessCallback = params => () => params.onSuccess(this.onHideEdit);
     return (
       <PropertiesContext.Consumer>
         {context => {
@@ -33,8 +34,8 @@ class Editable extends React.PureComponent<EditableItemProps, EditableItemState>
             ...this.props,
             properties: context.properties,
             onShowEdit: this.onShowEdit,
-            onCancel: params => this.onHideEdit({ ...params, context }),
-            onUpdate: params => context.update({ ...params, callback: this.onHideEdit }),
+            onCancel: this.onHideEdit,
+            onUpdate: params => context.api.update({ ...params, onSuccess: enchantSuccessCallback(params) }),
             isEdited,
           };
           return this.props.children(combinedProps);
