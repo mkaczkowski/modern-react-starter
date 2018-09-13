@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddleware';
@@ -8,8 +7,11 @@ import PostcssPresetEnv from 'postcss-preset-env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import getClientEnvironment from './env';
 import postcssConfig from './postcss.config';
+import getMetaData from './metadata';
 
 const env = getClientEnvironment('development');
+const metadata = getMetaData(env.raw);
+
 const shouldUseSourceMap = env.raw.GENERATE_SOURCE_MAP === 'true';
 const shouldUseLinters = env.raw.LINTERS_DISABLED !== 'true';
 
@@ -144,6 +146,7 @@ export default {
       }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
+      title: metadata.name,
     }),
   ].filter(plugin => plugin !== false),
   devServer: {

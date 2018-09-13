@@ -5,7 +5,10 @@ import styles from './Button.css';
 
 export type ButtonProps = {
   children?: any,
-  type?: string,
+  /**
+   * Button type
+   */
+  type?: 'button' | 'submit',
   primary?: boolean,
   secondary?: boolean,
   icon?: any,

@@ -28,8 +28,16 @@
     "react/require-default-props": "off",
     "react/sort-comp": "off",
     "spaced-comment": "off",
+
     "prefer-destructuring": "off",
-     "jsx-a11y/label-has-for":"off",
-     "jsx-a11y/label-has-associated-control":"off"
-  }
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": "off"
+  },
+  "overrides": [{
+    "files": [ "tasks/**/*.js" ],
+    "rules": {
+      "import/no-extraneous-dependencies": "off",
+      "function-paren-newline": "off"
+    }
+  }]
 }

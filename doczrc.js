@@ -8,6 +8,7 @@ export default {
   plugins: [
     css({
       preprocessor: 'postcss',
+      cssmodules: true,
       loaderOpts: postcssConfig,
     }),
   ],
