@@ -4,13 +4,15 @@ import { Icon } from 'react-icons-kit';
 import styles from './Button.css';
 
 export type ButtonProps = {
-  children?: any,
-  /**
-   * Button type
-   */
+  /** Content to be displayed within*/
+  children: any,
+  /** Button type */
   type?: 'button' | 'submit',
+  /** Primary style */
   primary?: boolean,
+  /** Secondary style */
   secondary?: boolean,
+  /** SVG icon */
   icon?: any,
 };
 

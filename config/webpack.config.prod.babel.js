@@ -24,6 +24,7 @@ const env = getClientEnvironment('production', '/');
 const metadata = getMetaData(env.raw);
 
 const isPWA = env.raw.PWA_ENABLED !== 'false';
+const isProfiler = env.raw.PROFILER_ENABLED !== 'false';
 const shouldUseLinters = env.raw.LINTERS_DISABLED !== 'true';
 
 export default {
@@ -37,6 +38,10 @@ export default {
     alias: {
       '@assets': path.resolve('src/assets'),
       modernizr$: path.resolve('.modernizrrc'),
+      ...(isProfiler ? {
+        'react-dom': 'react-dom/profiling',
+        'schedule/tracking': 'schedule/cjs/schedule-tracking.profiling.min',
+      } : {}),
     },
   },
   output: {
@@ -52,6 +57,7 @@ export default {
         cache: true,
         parallel: true,
         sourceMap: false, // set to true if you want JS source maps
+        mangle: !isProfiler
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],
@@ -155,11 +161,11 @@ export default {
     new webpack.DefinePlugin(env.stringified),
     new CleanWebpackPlugin(path.resolve('dist'), { root: path.resolve('.') }),
     shouldUseLinters &&
-      new StyleLintPlugin({
-        context: path.resolve('src'),
-        files: '**/*.css',
-        emitErrors: true,
-      }),
+    new StyleLintPlugin({
+      context: path.resolve('src'),
+      files: '**/*.css',
+      emitErrors: true,
+    }),
     new CopyWebpackPlugin([path.resolve('public')]),
     new LodashModuleReplacementPlugin({ paths: true }),
     new MiniCssExtractPlugin({
@@ -167,42 +173,42 @@ export default {
       chunkFilename: '[name].[contenthash:8].chunk.css',
     }),
     isPWA &&
-      new FaviconsWebpackPlugin({
-        logo: './src/assets/favicon.png',
-        prefix: '',
-        background: '#ffffff',
-        emitStats: false,
-        persistentCache: false,
-        icons: {
-          appleStartup: false,
+    new FaviconsWebpackPlugin({
+      logo: './src/assets/favicon.png',
+      prefix: '',
+      background: '#ffffff',
+      emitStats: false,
+      persistentCache: false,
+      icons: {
+        appleStartup: false,
+      },
+    }),
+    isPWA &&
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'modern-react-starter-pwa',
+      filename: 'service-worker.js',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      mergeStaticsConfig: true, // if false you won't see any wpack-emitted assets in your sw config
+      minify: true,
+      navigateFallback: '/index.html',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }),
+    isPWA &&
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json',
+    }),
+    isPWA &&
+    new WebpackPwaManifest({
+      ...metadata,
+      ios: true,
+      inject: true,
+      icons: [
+        {
+          src: path.resolve('src/assets/favicon.png'),
+          sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
         },
-      }),
-    isPWA &&
-      new SWPrecacheWebpackPlugin({
-        cacheId: 'modern-react-starter-pwa',
-        filename: 'service-worker.js',
-        dontCacheBustUrlsMatching: /\.\w{8}\./,
-        mergeStaticsConfig: true, // if false you won't see any wpack-emitted assets in your sw config
-        minify: true,
-        navigateFallback: '/index.html',
-        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      }),
-    isPWA &&
-      new ManifestPlugin({
-        fileName: 'asset-manifest.json',
-      }),
-    isPWA &&
-      new WebpackPwaManifest({
-        ...metadata,
-        ios: true,
-        inject: true,
-        icons: [
-          {
-            src: path.resolve('src/assets/favicon.png'),
-            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
-          },
-        ],
-      }),
+      ],
+    }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
       title: metadata.name,
@@ -260,12 +266,12 @@ export default {
       },
     }),
     env.raw.CI !== 'true' &&
-      env.raw.BUNDLE_ANALYZER !== 'false' &&
-      new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
-        openAnalyzer: true,
-        defaultSizes: 'gzip',
-      }),
+    env.raw.BUNDLE_ANALYZER !== 'false' &&
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: true,
+      defaultSizes: 'gzip',
+    }),
   ].filter(plugin => plugin !== false),
   node: {
     dgram: 'empty',
