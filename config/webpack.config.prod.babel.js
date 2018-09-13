@@ -1,7 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
@@ -24,6 +23,7 @@ const env = getClientEnvironment('production', '/');
 const metadata = getMetaData(env.raw);
 
 const isPWA = env.raw.PWA_ENABLED !== 'false';
+const shouldUseLinters = env.raw.LINTERS_DISABLED !== 'true';
 
 export default {
   mode: 'production',
@@ -58,7 +58,7 @@ export default {
   module: {
     strictExportPresence: true,
     rules: [
-      {
+      shouldUseLinters && {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'eslint-loader',
@@ -150,17 +150,16 @@ export default {
           },
         ],
       },
-    ],
+    ].filter(rule => rule !== false)
   },
   plugins: [
     new webpack.DefinePlugin(env.stringified),
     new CleanWebpackPlugin(path.resolve('dist'), { root: path.resolve('.') }),
-    new StyleLintPlugin({
+    shouldUseLinters && new StyleLintPlugin({
       context: path.resolve('src'),
       files: '**/*.css',
       emitErrors: true,
     }),
-    new CopyWebpackPlugin([path.resolve('public')]),
     new LodashModuleReplacementPlugin({ paths: true }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',
@@ -203,6 +202,7 @@ export default {
       template: path.resolve('public/index.html'),
       title: metadata.name,
       description: metadata.description,
+      google_maps_key: process.env.GOOGLE_API_KEY,
       manifest: metadata.filename,
       minify: {
         removeComments: true,

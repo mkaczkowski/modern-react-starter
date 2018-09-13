@@ -1,0 +1,51 @@
+@import '../../../styles/variables.css';
+
+:root {
+  --button-background: var(--color-white);
+  --button-background-primary: var(--color-blue);
+  --button-background-secondary: var(--color-red);
+  --button-background-icon: transparent;
+}
+
+button {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.1em solid rgba(255, 255, 255, 0);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  cursor:pointer;
+  appearance: none;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    border-color: rgba(255, 255, 255, 1);
+  }
+
+  &[disabled] {
+    pointer-events: none;
+  }
+}
+
+.icon {
+  background-color: var(--button-background-icon);
+  border: none;
+  border-radius: 100%;
+  padding: 0.68em;
+}
+
+.primary {
+  background-color: var(--button-background-primary);
+}
+
+.secondary {
+  background-color: var(--button-background-secondary);
+}
