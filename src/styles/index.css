@@ -1,8 +1,7 @@
 @import 'variables.css';
-@import 'common.css';
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
@@ -16,6 +15,3 @@ main {
   padding: 2rem;
   border-radius: 1rem;
 }
-
-
-

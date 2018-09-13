@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import noopServiceWorkerMiddleware from 'react-dev-utils/noopServiceWorkerMiddleware';
@@ -94,9 +95,7 @@ export default {
                 options: {
                   sourceMap: shouldUseSourceMap,
                   ident: 'postcss',
-                  plugins: () => [
-                    PostcssPresetEnv(postcssConfig),
-                  ],
+                  plugins: () => [PostcssPresetEnv(postcssConfig)],
                 },
               },
             ],
@@ -122,7 +121,7 @@ export default {
             use: ['modernizr-loader', 'json-loader'],
           },
           {
-            test: /\.(jpe?g|jpg|gif|ico|png|woff|woff2|eot|ttf|webp)$/,
+            test: /\.(jpe?g|jpg|gif|ico|png|svg|woff|woff2|eot|ttf|webp)$/,
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
@@ -130,21 +129,21 @@ export default {
           },
         ],
       },
-    ].filter(rule => rule !== false)
+    ].filter(rule => rule !== false),
   },
   plugins: [
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
-    shouldUseLinters && new StyleLintPlugin({
-      context: path.resolve('src'),
-      files: '**/*.css',
-      emitErrors: false,
-      failOnError: false,
-      quiet: false,
-    }),
+    shouldUseLinters &&
+      new StyleLintPlugin({
+        context: path.resolve('src'),
+        files: '**/*.css',
+        emitErrors: false,
+        failOnError: false,
+        quiet: false,
+      }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
-      google_maps_key: process.env.GOOGLE_API_KEY,
     }),
   ].filter(plugin => plugin !== false),
   devServer: {

@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
@@ -107,9 +108,7 @@ export default {
                 options: {
                   sourceMap: false,
                   ident: 'postcss',
-                  plugins: () => [
-                    PostcssPresetEnv(postcssConfig),
-                  ],
+                  plugins: () => [PostcssPresetEnv(postcssConfig)],
                 },
               },
             ],
@@ -141,7 +140,7 @@ export default {
             use: ['modernizr-loader', 'json-loader'],
           },
           {
-            test: /\.(jpe?g|jpg|gif|png|ico|woff|woff2|eot|ttf|webp)$/,
+            test: /\.(jpe?g|jpg|gif|png|svg|ico|woff|woff2|eot|ttf|webp)$/,
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
@@ -150,59 +149,64 @@ export default {
           },
         ],
       },
-    ].filter(rule => rule !== false)
+    ].filter(rule => rule !== false),
   },
   plugins: [
     new webpack.DefinePlugin(env.stringified),
     new CleanWebpackPlugin(path.resolve('dist'), { root: path.resolve('.') }),
-    shouldUseLinters && new StyleLintPlugin({
-      context: path.resolve('src'),
-      files: '**/*.css',
-      emitErrors: true,
-    }),
+    shouldUseLinters &&
+      new StyleLintPlugin({
+        context: path.resolve('src'),
+        files: '**/*.css',
+        emitErrors: true,
+      }),
+    new CopyWebpackPlugin([path.resolve('public')]),
     new LodashModuleReplacementPlugin({ paths: true }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',
       chunkFilename: '[name].[contenthash:8].chunk.css',
     }),
-    isPWA && new FaviconsWebpackPlugin({
-      logo: './src/assets/favicon.png',
-      prefix: '',
-      background: '#ffffff',
-      emitStats: false,
-      persistentCache: false,
-      icons: {
-        appleStartup: false,
-      },
-    }),
-    isPWA && new SWPrecacheWebpackPlugin({
-      cacheId: 'modern-react-starter-pwa',
-      filename: 'service-worker.js',
-      dontCacheBustUrlsMatching: /\.\w{8}\./,
-      mergeStaticsConfig: true, // if false you won't see any wpack-emitted assets in your sw config
-      minify: true,
-      navigateFallback: '/index.html',
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-    }),
-    isPWA && new ManifestPlugin({
-      fileName: 'asset-manifest.json',
-    }),
-    isPWA && new WebpackPwaManifest({
-      ...metadata,
-      ios: true,
-      inject: true,
-      icons: [
-        {
-          src: path.resolve('src/assets/favicon.png'),
-          sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+    isPWA &&
+      new FaviconsWebpackPlugin({
+        logo: './src/assets/favicon.png',
+        prefix: '',
+        background: '#ffffff',
+        emitStats: false,
+        persistentCache: false,
+        icons: {
+          appleStartup: false,
         },
-      ],
-    }),
+      }),
+    isPWA &&
+      new SWPrecacheWebpackPlugin({
+        cacheId: 'modern-react-starter-pwa',
+        filename: 'service-worker.js',
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        mergeStaticsConfig: true, // if false you won't see any wpack-emitted assets in your sw config
+        minify: true,
+        navigateFallback: '/index.html',
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      }),
+    isPWA &&
+      new ManifestPlugin({
+        fileName: 'asset-manifest.json',
+      }),
+    isPWA &&
+      new WebpackPwaManifest({
+        ...metadata,
+        ios: true,
+        inject: true,
+        icons: [
+          {
+            src: path.resolve('src/assets/favicon.png'),
+            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+          },
+        ],
+      }),
     new HTMLWebpackPlugin({
       template: path.resolve('public/index.html'),
       title: metadata.name,
       description: metadata.description,
-      google_maps_key: process.env.GOOGLE_API_KEY,
       manifest: metadata.filename,
       minify: {
         removeComments: true,
@@ -260,6 +264,7 @@ export default {
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: true,
+        defaultSizes: 'gzip',
       }),
   ].filter(plugin => plugin !== false),
   node: {

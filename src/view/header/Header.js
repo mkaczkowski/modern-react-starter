@@ -8,7 +8,7 @@ type HeaderState = {
   isScrolled: boolean,
 };
 
-class Header extends React.Component<null, HeaderState> {
+class Header extends React.PureComponent<null, HeaderState> {
   //$FlowIssue
   scrollY: number;
   scrollListener: any;
@@ -51,7 +51,7 @@ class Header extends React.Component<null, HeaderState> {
     return (
       <header styleName="menu" className={className}>
         <div styleName="inner-wrapper">
-          <h1>Properties Explorer</h1>
+          <h1>Title</h1>
         </div>
       </header>
     );
