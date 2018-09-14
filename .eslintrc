@@ -17,7 +17,6 @@
     "no-console": "error", // airbnb is using warn
     "no-return-assign": "off", // airbnb use error, handy for react ref assign.
     "object-curly-newline": "off",
-    "operator-linebreak": ["error", "after"], // aibnb is disabling this rule
     "react/destructuring-assignment": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js"] }], // airbnb is using .jsx
     "react/jsx-max-props-per-line": ["error", { "maximum": 7 }], // airbnb is disabling this rule
@@ -28,7 +27,6 @@
     "react/require-default-props": "off",
     "react/sort-comp": "off",
     "spaced-comment": "off",
-
     "prefer-destructuring": "off",
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/label-has-associated-control": "off"

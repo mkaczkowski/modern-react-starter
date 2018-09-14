@@ -41,6 +41,7 @@ export default {
       ...(isProfiler
         ? {
             'react-dom': 'react-dom/profiling',
+            // eslint-disable-next-line indent
             'schedule/tracking': 'schedule/cjs/schedule-tracking.profiling.min',
           }
         : {}),
