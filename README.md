@@ -3,7 +3,7 @@
 Cutting edge React JS boilerplate for everyone
 
 ## 🕹 Features
-* [React (v16.4.2)](https://reactjs.org) - JavaScript library for building user interfaces
+* [React (v16.5.2)](https://reactjs.org) - JavaScript library for building user interfaces
 * [Flow](https://flow.org/) - Static type checker for JavaScript.
 * [Babel v7](https://babeljs.io) - JavaScript transpiler
 * [Webpack (v4.17.1)](https://webpack.js.org) with plugins - a module bundler
