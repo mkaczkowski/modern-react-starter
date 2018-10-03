@@ -1,13 +1,20 @@
 {
   "parser": "babel-eslint",
   "extends": "airbnb",
-  "plugins": ["jest"],
+  "plugins": ["typescript", "jest"],
   "env": {
     "browser": true,
     "es6": true,
     "jest/globals": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": true,
+      "eslint-import-resolver-typescript": true
+    }
+  },
   "rules": {
+    "import/extensions": [0, "never", { "ts": "never" }],
     "arrow-parens": "off",
     "comma-dangle": "off",
     "implicit-arrow-linebreak": "off",
@@ -18,7 +25,7 @@
     "no-return-assign": "off", // airbnb use error, handy for react ref assign.
     "object-curly-newline": "off",
     "react/destructuring-assignment": "off",
-    "react/jsx-filename-extension": ["error", { "extensions": [".js"] }], // airbnb is using .jsx
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }], // airbnb is using .jsx
     "react/jsx-max-props-per-line": ["error", { "maximum": 7 }], // airbnb is disabling this rule
     "react/jsx-one-expression-per-line": "off",
     "react/no-danger": "error", // airbnb is using warn
@@ -31,11 +38,13 @@
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/label-has-associated-control": "off"
   },
-  "overrides": [{
-    "files": [ "tasks/**/*.js" ],
-    "rules": {
-      "import/no-extraneous-dependencies": "off",
-      "function-paren-newline": "off"
+  "overrides": [
+    {
+      "files": ["tasks/**/*.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "function-paren-newline": "off"
+      }
     }
-  }]
+  ]
 }

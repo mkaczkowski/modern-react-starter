@@ -31,10 +31,10 @@ export default {
   mode: 'production',
   bail: true,
   devtool: false,
-  entry: [path.resolve('src/index.js')],
+  entry: [path.resolve('src/index.ts')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
-    extensions: ['.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
       '@assets': path.resolve('src/assets'),
       modernizr$: path.resolve('.modernizrrc'),
@@ -71,7 +71,7 @@ export default {
     rules: [
       shouldUseLinters && {
         enforce: 'pre',
-        test: /\.js$/,
+        test: /\.ts$/,
         loader: 'eslint-loader',
         options: {
           emitError: true,
@@ -82,7 +82,7 @@ export default {
       {
         oneOf: [
           {
-            test: /\.js$/,
+            test: /\.ts$/,
             exclude: [/[/\\\\]node_modules[/\\\\]/],
             use: {
               loader: 'babel-loader',
@@ -125,7 +125,7 @@ export default {
           },
           {
             test: /\.svg$/,
-            issuer: /\.js$/,
+            issuer: /\.ts$/,
             use: [
               {
                 loader: 'babel-loader',

@@ -1,11 +1,11 @@
 import React from 'react';
 import _throttle from 'lodash/throttle';
-import classnames  from 'classnames' ;
+import classnames from 'classnames';
 
 import styles from './Header.css';
 
 type HeaderState = {
-  isScrolled: boolean,
+  isScrolled: boolean ;
 };
 
 class Header extends React.PureComponent<null, HeaderState> {

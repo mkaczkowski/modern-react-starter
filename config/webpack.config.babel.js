@@ -18,10 +18,10 @@ const shouldUseLinters = env.raw.LINTERS_DISABLED !== 'true';
 export default {
   mode: 'development',
   devtool: shouldUseSourceMap ? 'cheap-module-source-map' : false,
-  entry: ['react-dev-utils/webpackHotDevClient', path.resolve('src/index.js')],
+  entry: ['react-dev-utils/webpackHotDevClient', path.resolve('src/index.tsx')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
-    extensions: ['.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
       '@assets': path.resolve('src/assets'),
       modernizr$: path.resolve('.modernizrrc'),
@@ -42,9 +42,14 @@ export default {
   module: {
     strictExportPresence: true,
     rules: [
-      shouldUseLinters && {
+      shouldUseSourceMap && {
         enforce: 'pre',
         test: /\.js$/,
+        use: ['source-map-loader'],
+      },
+      shouldUseLinters && {
+        enforce: 'pre',
+        test: /\.(tsx?)$/,
         loader: 'eslint-loader',
         options: {
           emitWarning: true,
@@ -54,7 +59,7 @@ export default {
       {
         oneOf: [
           {
-            test: /\.js$/,
+            test: /\.(tsx?)$/,
             exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
@@ -84,11 +89,13 @@ export default {
                 },
               },
               {
-                loader: 'css-loader',
+                loader: 'typings-for-css-modules-loader',
                 options: {
                   sourceMap: shouldUseSourceMap,
                   importLoaders: 1,
                   modules: true,
+                  namedExport: true,
+                  camelCase: true,
                   localIdentName: '[name]__[local]___[hash:base64:5]',
                 },
               },
@@ -104,7 +111,7 @@ export default {
           },
           {
             test: /\.svg$/,
-            issuer: /\.js$/,
+            issuer: /\.(tsx?)$/,
             use: [
               {
                 loader: 'babel-loader',
@@ -134,6 +141,7 @@ export default {
     ].filter(rule => rule !== false),
   },
   plugins: [
+    new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
     shouldUseLinters &&
@@ -158,6 +166,9 @@ export default {
       disableDotRule: true,
     },
     port: 3000,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     before(app) {
       app.use(errorOverlayMiddleware());
       app.use(noopServiceWorkerMiddleware());
