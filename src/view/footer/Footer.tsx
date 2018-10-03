@@ -1,7 +1,6 @@
-// @flow
 import React from 'react';
 import { linkedin as linkedinIcon } from 'react-icons-kit/feather/linkedin';
-import Button from '../../components/common/button';
+import Button from '../../components/common/button/index';
 import './Footer.css';
 
 function Footer() {

@@ -1,7 +1,7 @@
-// @flow
 import React from 'react';
 import _throttle from 'lodash/throttle';
-import classnames from 'classnames';
+import classnames  from 'classnames' ;
+
 import styles from './Header.css';
 
 type HeaderState = {
@@ -10,7 +10,7 @@ type HeaderState = {
 
 class Header extends React.PureComponent<null, HeaderState> {
   //$FlowIssue
-  scrollY: number;
+  scrollY: number = 0;
   scrollListener: any;
 
   state = {
