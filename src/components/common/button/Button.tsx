@@ -13,7 +13,7 @@ export interface ButtonProps {
   /** Secondary style */
   secondary?: boolean;
   /** SVG icon */
-   icon?: any;
+  icon?: any;
 }
 
 const handleKeyPress = (evt: React.KeyboardEvent<HTMLButtonElement>) => {
