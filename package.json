@@ -14,7 +14,7 @@
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "optimize": "gulp optimize",
-    "precommit": "pretty-quick --staged",
+    "precommit": "pretty-quick --staged --no-restage",
     "typecheck": "tsc"
   },
   "dependencies": {
