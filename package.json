@@ -16,17 +16,6 @@
     "optimize": "gulp optimize",
     "typecheck": "tsc"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@types/classnames": "^2.2.6",
