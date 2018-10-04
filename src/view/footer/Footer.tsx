@@ -1,12 +1,13 @@
 import React from 'react';
+// @ts-ignore
 import { linkedin as linkedinIcon } from 'react-icons-kit/feather/linkedin';
 import Button from '../../components/common/button/index';
-import './Footer.css';
+import styles from './Footer.css';
 
 function Footer() {
   return (
     <footer>
-      <div styleName="inner-wrapper">
+      <div className={styles.innerWrapper}>
         © 2018 Mariusz Kaczkowski
         <Button icon={linkedinIcon} />
       </div>

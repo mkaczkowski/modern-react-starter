@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
-import Header from './view/header/index';
-import Footer from './view/footer/Footer';
+import Header from './view/header';
+import Footer from './view/footer';
 import Hero from './view/hero/Hero';
 
 import './styles/index.css';

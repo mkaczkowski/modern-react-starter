@@ -66,16 +66,7 @@ export default {
               options: {
                 cacheDirectory: true,
                 highlightCode: true,
-                plugins: [
-                  'react-hot-loader/babel',
-                  [
-                    'react-css-modules',
-                    {
-                      generateScopedName: '[name]__[local]___[hash:base64:5]',
-                      webpackHotModuleReloading: true,
-                    },
-                  ],
-                ],
+                plugins: ['react-hot-loader/babel'],
               },
             },
           },

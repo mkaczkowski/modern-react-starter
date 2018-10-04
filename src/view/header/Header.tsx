@@ -4,13 +4,12 @@ import classnames from 'classnames';
 
 import styles from './Header.css';
 
-type HeaderState = {
-  isScrolled: boolean ;
-};
+interface HeaderState {
+  isScrolled: boolean;
+}
 
-class Header extends React.PureComponent<null, HeaderState> {
-  //$FlowIssue
-  scrollY: number = 0;
+class Header extends React.Component<any, HeaderState> {
+  scrollPosition: any;
   scrollListener: any;
 
   state = {
@@ -29,7 +28,7 @@ class Header extends React.PureComponent<null, HeaderState> {
     if (!this.scrollListener) {
       this.scrollListener = _throttle(this.handleScroll, 50);
       window.addEventListener('scroll', this.scrollListener);
-      this.scrollY = window.scrollY;
+      this.scrollPosition = window.scrollY;
     }
   };
 
@@ -38,19 +37,21 @@ class Header extends React.PureComponent<null, HeaderState> {
   }
 
   handleScroll = () => {
-    this.scrollY = window.scrollY;
-    const isScrolled = this.scrollY !== undefined && this.scrollY > 0;
+    this.scrollPosition = window.scrollY;
+    const isScrolled = this.scrollPosition !== undefined && this.scrollPosition > 0;
     this.setState({ isScrolled });
   };
 
   render() {
     const { isScrolled } = this.state;
 
-    const className = classnames({ [styles.scrolled]: isScrolled });
+    const className = classnames(styles.menu, {
+      [styles.scrolled]: isScrolled,
+    });
 
     return (
-      <header styleName="menu" className={className}>
-        <div styleName="inner-wrapper">
+      <header className={className}>
+        <div className={styles.innerWrapper}>
           <h1>Title</h1>
         </div>
       </header>
