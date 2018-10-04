@@ -13,7 +13,6 @@ export interface ButtonProps {
   /** Secondary style */
   secondary?: boolean;
   /** SVG icon */
-
   icon?: any;
 }
 
