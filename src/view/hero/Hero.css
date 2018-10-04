@@ -8,7 +8,7 @@
     background: red;
   }
   @media (--tablet) {
-    background: yellow;
+    background: green;
   }
   @media (--desktop) {
     background: orange;

@@ -8,6 +8,7 @@ import StyleLintPlugin from 'stylelint-webpack-plugin';
 import getClientEnvironment from './env';
 import postcssConfig from './postcss.config';
 import getMetaData from './metadata';
+import WebpackNotifierPlugin from 'webpack-notifier';
 
 const env = getClientEnvironment('development');
 const metadata = getMetaData(env.raw);
@@ -21,7 +22,7 @@ export default {
   entry: ['react-dev-utils/webpackHotDevClient', path.resolve('src/index.tsx')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     alias: {
       '@assets': path.resolve('src/assets'),
       modernizr$: path.resolve('.modernizrrc'),
@@ -59,7 +60,7 @@ export default {
       {
         oneOf: [
           {
-            test: /\.(tsx?)$/,
+            test: /\.(tsx?)|(jsx?)$/,
             exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
@@ -147,6 +148,7 @@ export default {
       template: path.resolve('public/index.html'),
       title: metadata.name,
     }),
+    new WebpackNotifierPlugin(),
   ].filter(plugin => plugin !== false),
   devServer: {
     contentBase: '.tmp',

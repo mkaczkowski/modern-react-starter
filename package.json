@@ -115,6 +115,7 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
     "webpack-manifest-plugin": "^2.0.3",
+    "webpack-notifier": "^1.6.0",
     "webpack-pwa-manifest": "^3.7.1"
   },
   "browserslist": {

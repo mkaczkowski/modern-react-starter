@@ -16,6 +16,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import HtmlCriticalWebpackPlugin from 'html-critical-webpack-plugin';
+import WebpackNotifierPlugin from 'webpack-notifier';
 import getClientEnvironment from './env';
 import getMetaData from './metadata';
 import postcssConfig from './postcss.config';
@@ -34,7 +35,7 @@ export default {
   entry: [path.resolve('src/index.tsx')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     alias: {
       '@assets': path.resolve('src/assets'),
       modernizr$: path.resolve('.modernizrrc'),
@@ -54,17 +55,17 @@ export default {
   },
   optimization: {
     runtimeChunk: false,
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: false, // set to true if you want JS source maps
-        uglifyOptions: {
-          mangle: !isProfiler ? { safari10: true } : false,
-        },
-      }),
-      new OptimizeCSSAssetsPlugin({}),
-    ],
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //     sourceMap: false, // set to true if you want JS source maps
+    //     uglifyOptions: {
+    //       mangle: !isProfiler
+    //     },
+    //   }),
+    //   new OptimizeCSSAssetsPlugin({}),
+    // ],
   },
   module: {
     strictExportPresence: true,
@@ -268,6 +269,7 @@ export default {
         openAnalyzer: true,
         defaultSizes: 'gzip',
       }),
+    env.raw.CI !== 'true' && new WebpackNotifierPlugin(),
   ].filter(plugin => plugin !== false),
   node: {
     dgram: 'empty',
