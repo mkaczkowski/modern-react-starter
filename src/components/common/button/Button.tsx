@@ -19,7 +19,8 @@ export interface ButtonProps {
 const handleKeyPress = (evt: React.KeyboardEvent<HTMLButtonElement>) => {
   if (evt.charCode === 32 || evt.charCode === 13) {
     evt.preventDefault();
-    (evt.target as HTMLElement).click();
+    // (evt.target as HTMLElement).click();
+    evt.target.click();
   }
 };
 

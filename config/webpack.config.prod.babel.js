@@ -31,7 +31,7 @@ export default {
   mode: 'production',
   bail: true,
   devtool: false,
-  entry: [path.resolve('src/index.ts')],
+  entry: [path.resolve('src/index.tsx')],
   resolve: {
     modules: [path.resolve('src'), path.resolve('node_modules')],
     extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -71,7 +71,7 @@ export default {
     rules: [
       shouldUseLinters && {
         enforce: 'pre',
-        test: /\.ts$/,
+        test: /\.(tsx?)$/,
         loader: 'eslint-loader',
         options: {
           emitError: true,
@@ -82,7 +82,7 @@ export default {
       {
         oneOf: [
           {
-            test: /\.ts$/,
+            test: /\.(tsx?)$/,
             exclude: [/[/\\\\]node_modules[/\\\\]/],
             use: {
               loader: 'babel-loader',
@@ -117,7 +117,7 @@ export default {
           },
           {
             test: /\.svg$/,
-            issuer: /\.ts$/,
+            issuer: /\.(tsx?)$/,
             use: [
               {
                 loader: 'babel-loader',
