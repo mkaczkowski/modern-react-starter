@@ -14,7 +14,8 @@
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "optimize": "gulp optimize",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "typecheck:watch": "yarn typecheck -- --watch"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",

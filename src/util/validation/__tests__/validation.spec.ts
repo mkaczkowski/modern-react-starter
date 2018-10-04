@@ -31,7 +31,7 @@ describe('Validators', () => {
 
   describe('number', () => {
     it('should pass', () => {
-      const value = 0;
+      const value = '0';
       const result = number()(value);
       expect(result).toBeUndefined();
     });

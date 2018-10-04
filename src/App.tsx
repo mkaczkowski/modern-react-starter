@@ -7,9 +7,8 @@ import Hero from './view/hero/Hero';
 import './styles/index.css';
 
 export interface HelloProps {
-  // compiler: string;
+  compiler: string;
   framework: string;
-  framework2: string;
 }
 
 export const Hello = (props: HelloProps) => (

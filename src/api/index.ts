@@ -2,8 +2,8 @@ const requestHeaders = () => ({
   'Content-Type': 'application/json',
 });
 
-const fetchIt = async (url, options) => {
-  const optionsWithHeaders = {
+const fetchIt = async (url: string, options: Object) => {
+  const optionsWithHeaders: any = {
     ...options,
     credentials: 'omit',
     mode: 'cors',
@@ -13,7 +13,7 @@ const fetchIt = async (url, options) => {
 
   try {
     const response = await fetch(request);
-    if (response.status >= 400) throw new Error(response.status);
+    if (response.status >= 400) throw new Error(`${response.status}`);
     return await response.json();
   } catch (error) {
     return Promise.reject(error);

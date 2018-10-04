@@ -8,8 +8,6 @@ interface HeaderState {
   isScrolled: boolean;
 }
 
-let test: number;
-
 class Header extends React.Component<any, HeaderState> {
   scrollPosition: any;
   scrollListener: any;
@@ -20,7 +18,6 @@ class Header extends React.Component<any, HeaderState> {
 
   componentDidMount() {
     this.initializeScroll();
-    // test = '123';
   }
 
   componentWillUnmount() {
